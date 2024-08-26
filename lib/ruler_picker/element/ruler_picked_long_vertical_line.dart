@@ -14,19 +14,11 @@ class _RulerPickedLongVerticalLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-
-
-        Container(
-            margin: const EdgeInsets.symmetric(horizontal: 11),
-            width: width,
-            height: height,
-            color: color
-        ),
-      ],
+    return Container(
+      alignment: Alignment.center,
+      width: width,
+      height: height,
+      color: color
     );
   }
 }
