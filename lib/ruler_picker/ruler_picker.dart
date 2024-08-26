@@ -45,6 +45,7 @@ class _RulerPickerState extends State<RulerPicker> {
 
   double get resistance => 0.99 / widget.resistance;
   double get acceleration => 0.0002 * widget.acceleration;
+  double get rulerBetweenAlignWidth => 0.071;
 
   Timer? timer;
   late int prev;
@@ -56,6 +57,7 @@ class _RulerPickerState extends State<RulerPicker> {
   double get borderWidth => widget.borderWidth;
   Color get pickedBarColor => widget.pickedBarColor;
   Color get barColor => widget.barColor;
+  int get verticalLineCount => (1 ~/ rulerBetweenAlignWidth) + 1;
 
   @override
   void initState() {
@@ -69,27 +71,27 @@ class _RulerPickerState extends State<RulerPicker> {
 
     List<Widget> rulerLines = [];
 
-    for (int index = 0; index < 20; index++) {
+    for (int index = 0; index < verticalLineCount; index++) {
       if (maxNumber == null) {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth,));
       } else if( (selectedNumber + index) >= maxNumber! ) {
         double maxDouble = maxNumber!.toDouble();
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: maxDouble, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: maxDouble, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
         break;
       } else {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
       }
     }
 
-    for (int index = -1; index > -20; index--) {
+    for (int index = -1; index > -verticalLineCount; index--) {
       if (minNumber == null) {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
       } else if( (selectedNumber + index) < minNumber! ) {
         double minDouble = minNumber!.toDouble();
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: minDouble, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: minDouble, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
         break;
       } else {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
       }
     }
 
