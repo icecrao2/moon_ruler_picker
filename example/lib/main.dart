@@ -85,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: RulerPicker(
                   width: 300,
                   height: 200,
+                  longVerticalLineHeightRatio: 0.5,
+                  shortVerticalLineHeightRatio: 0.32,
                   resistance: 1,
                   acceleration: 1,
                   callbackDouble: (data) {
