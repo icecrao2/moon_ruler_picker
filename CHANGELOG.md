@@ -30,3 +30,4 @@
 
 ## 1.0.1
 
+* Change initial value and callback method

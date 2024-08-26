@@ -6,11 +6,11 @@ part of ruler_picker_lib;
 
 class _RulerShortVerticalLine extends StatelessWidget {
 
-  late double height;
-  late double width;
-  late Color color;
+  final double height;
+  final double width;
+  final Color color;
 
-  _RulerShortVerticalLine({required this.height, required this.width, required this.color});
+  const _RulerShortVerticalLine({required this.height, required this.width, required this.color});
 
   @override
   Widget build(BuildContext context) {
