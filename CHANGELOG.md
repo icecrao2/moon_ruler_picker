@@ -23,3 +23,11 @@
 ## 1.0.4
 
 * Edit Docs
+
+## 1.0.5
+
+* add intCallback
+
+## 1.0.1
+
+* Change initial value and callback method

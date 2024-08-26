@@ -6,29 +6,29 @@ part of ruler_picker_lib;
 
 class _RulerVerticalLine extends StatelessWidget {
 
-  late double standardNumber;
-  late double myNumber;
+  final double standardNumber;
+  final double myNumber;
 
-  late double height;
-  late double width;
-  late Color pickedColor;
-  late Color color;
+  final double longVerticalLineHeight;
+  final double shortVerticalLineHeight;
 
-  _RulerVerticalLine({required this.standardNumber, required this.myNumber, required this.width, required this.height, required this.color, required this.pickedColor});
+  final double width;
+  final Color pickedColor;
+  final Color color;
+  final double rulerBetweenAlignWidth;
+
+  int get verticalLineNumber => myNumber.floor();
+  double get alignX => (verticalLineNumber - standardNumber) * rulerBetweenAlignWidth;
+
+  const _RulerVerticalLine({required this.standardNumber, required this.myNumber, required this.width, required this.longVerticalLineHeight, required this.shortVerticalLineHeight, required this.color, required this.pickedColor, required this.rulerBetweenAlignWidth});
 
   @override
   Widget build(BuildContext context) {
 
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-
-        if (myNumber.floor() % 5 == 0) {
-          return _RulerAlignedLongVerticalLine(standardNumber: standardNumber, myNumber: myNumber, width: width, height: constraints.maxHeight * 0.6, color: color, pickedColor: pickedColor, );
-        } else {
-          return _RulerAlignedShortVerticalLine(standardNumber: standardNumber, myNumber: myNumber, width: width, height: constraints.maxHeight * 0.34, color: color, pickedColor: pickedColor,  );
-        }
-
-      }
-    );
+    if (myNumber.floor() % 5 == 0) {
+      return _RulerAlignedLongVerticalLine(standardNumber: standardNumber, myNumber: verticalLineNumber, width: width, height: longVerticalLineHeight, color: color, pickedColor: pickedColor, alignX: alignX,);
+    } else {
+      return _RulerAlignedShortVerticalLine(standardNumber: standardNumber, myNumber: verticalLineNumber, width: width, height: shortVerticalLineHeight, color: color, pickedColor: pickedColor, alignX: alignX,);
+    }
   }
 }
