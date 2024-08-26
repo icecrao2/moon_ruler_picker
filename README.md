@@ -5,7 +5,7 @@ this package provide you with good ruler picker! <br/>
 Experience the Ruler Picker smoothly gliding through a swift swipe motion, coming to a natural halt! <br/>
 Customize the movement of the Ruler Picker by setting acceleration and resistance to achieve your desired behavior. <br/>
 
-![](https://velog.velcdn.com/images/icecrao2/post/ce3f18dd-724a-45f7-95a9-612ba081761c/image.gif)
+<img src="https://velog.velcdn.com/images/icecrao2/post/cda1bd1d-b88c-4410-a8da-fe4aeeb1ce72/image.gif" width=300 />
 
 ## Getting started
 
@@ -16,19 +16,24 @@ flutter pub add moon_ruler_picker
 ## Usage
 
 ``` dart
-    RulerPicker(
-    	width: 300,			// widget's width
-        height: 200,		// widget's height
-        resistance: 1,		// drag resistance
-        acceleration: 1,	// drag acceleration
-        callback: (data) {	// data change callback
-        	setState(() {
-                  _data = data;
-            });
-        },
-        selectedNumber: _data,	// first data
-        borderWidth: 2,			// ruler Graduation's width
-        pickedBarColor: const Color(0XFF0180BE),	// picked ruler's color
-        barColor: const Color(0XFF0180BE).withOpacity(0.3)	// default ruler's color
+   RulerPicker(
+      width: 300,
+      height: 200,
+      resistance: 1,
+      acceleration: 1,
+      callbackDouble: (data) {
+        setState(() {
+          _doubleData = data;
+        });
+      },
+      callbackInt: (data) {
+        setState(() {
+          _intData = data;
+        });
+      },
+      selectedNumber: _doubleData,
+      borderWidth: 2,
+      pickedBarColor: const Color(0XFF0180BE),
+      barColor: const Color(0XFF0180BE).withOpacity(0.3)
     ),
 ```

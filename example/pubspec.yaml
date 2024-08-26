@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  ruler_picker_lib:
+  moon_ruler_picker:
     path: ..
 
   cupertino_icons: ^1.0.2

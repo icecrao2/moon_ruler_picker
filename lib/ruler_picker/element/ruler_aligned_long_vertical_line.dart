@@ -7,14 +7,14 @@ part of ruler_picker_lib;
 class _RulerAlignedLongVerticalLine extends StatelessWidget {
 
   final double rulerBetweenWidth = 0.071;
-  late double standardNumber;
-  late int myNumber;
-  late double alignX;
+  final double standardNumber;
+  late final int myNumber;
+  late final double alignX;
 
-  late double height;
-  late double width;
-  late Color pickedColor;
-  late Color color;
+  final double height;
+  final double width;
+  final Color pickedColor;
+  final Color color;
 
   double get _diff => (standardNumber - myNumber).abs();
   bool get _widgetStandard => ( _diff < 0.5 );
@@ -42,7 +42,6 @@ class _RulerAlignedLongVerticalLine extends StatelessWidget {
               style: const TextStyle(
                 color: Color(0xFF0180BE),
                 fontSize: 12,
-                fontFamily: 'Noto Sans CJK KR',
                 fontWeight: FontWeight.w500,
                 height: 0.17,
               ),

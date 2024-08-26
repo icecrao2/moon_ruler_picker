@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:ruler_picker_lib/ruler_picker_lib.dart';
+import 'package:moon_ruler_picker/ruler_picker_lib.dart';
 
 
 void main() {
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _intData = data;
                 });
               },
-              selectedNumber: _doubleData,
+              initNumber: _doubleData,
               borderWidth: 2,
               pickedBarColor: const Color(0XFF0180BE),
               barColor: const Color(0XFF0180BE).withOpacity(0.3)
