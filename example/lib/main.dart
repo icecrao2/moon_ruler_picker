@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:ruler_picker_lib/ruler_picker_lib.dart';
+import 'package:moon_ruler_picker/ruler_picker_lib.dart';
 
 
 void main() {
@@ -80,25 +80,30 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            RulerPicker(
-              width: 300,
-              height: 200,
-              resistance: 1,
-              acceleration: 1,
-              callbackDouble: (data) {
-                setState(() {
-                  _doubleData = data;
-                });
-              },
-              callbackInt: (data) {
-                setState(() {
-                  _intData = data;
-                });
-              },
-              selectedNumber: _doubleData,
-              borderWidth: 2,
-              pickedBarColor: const Color(0XFF0180BE),
-              barColor: const Color(0XFF0180BE).withOpacity(0.3)
+            SizedBox(
+              width: double.infinity,
+              child: RulerPicker(
+                  width: 300,
+                  height: 200,
+                  longVerticalLineHeightRatio: 0.5,
+                  shortVerticalLineHeightRatio: 0.32,
+                  resistance: 1,
+                  acceleration: 1,
+                  callbackDouble: (data) {
+                    setState(() {
+                      _doubleData = data;
+                    });
+                  },
+                  callbackInt: (data) {
+                    setState(() {
+                      _intData = data;
+                    });
+                  },
+                  initNumber: _doubleData,
+                  borderWidth: 2,
+                  pickedBarColor: const Color(0XFF0180BE),
+                  barColor: const Color(0XFF0180BE).withOpacity(0.3)
+              ),
             ),
 
             const Spacer(),
