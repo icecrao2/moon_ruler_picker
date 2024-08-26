@@ -10,7 +10,7 @@ class _RulerLongVerticalLine extends StatelessWidget {
   final double width;
   final Color color;
 
-  _RulerLongVerticalLine({required this.height, required this.width, required this.color});
+  const _RulerLongVerticalLine({required this.height, required this.width, required this.color});
 
   @override
   Widget build(BuildContext context) {

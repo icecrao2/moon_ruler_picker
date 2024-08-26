@@ -7,8 +7,8 @@ part of ruler_picker_lib;
 class _RulerAlignedLongVerticalLine extends StatelessWidget {
 
   final double standardNumber;
-  late final int myNumber;
-  late final double alignX;
+  final int myNumber;
+  final double alignX;
 
   final double height;
   final double width;
@@ -18,10 +18,7 @@ class _RulerAlignedLongVerticalLine extends StatelessWidget {
   double get _diff => (standardNumber - myNumber).abs();
   bool get _widgetStandard => ( _diff < 0.5 );
 
-  _RulerAlignedLongVerticalLine({required this.standardNumber, required double myNumber, required this.height, required this.width, required this.color, required this.pickedColor, required double rulerBetweenWidth}){
-    this.myNumber = myNumber.floor();
-    alignX = (this.myNumber - standardNumber) * rulerBetweenWidth;
-  }
+  const _RulerAlignedLongVerticalLine({required this.standardNumber, required this.myNumber, required this.height, required this.width, required this.color, required this.pickedColor, required this.alignX});
 
   @override
   Widget build(BuildContext context) {
