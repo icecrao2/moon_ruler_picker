@@ -80,13 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            SizedBox(
+            Container(
               width: double.infinity,
               child: RulerPicker(
                   width: 300,
                   height: 200,
-                  longVerticalLineHeightRatio: 0.5,
-                  shortVerticalLineHeightRatio: 0.32,
+                  longVerticalLineHeightRatio: 0.8,
+                  shortVerticalLineHeightRatio: 0.72,
                   resistance: 1,
                   acceleration: 1,
                   callbackDouble: (data) {

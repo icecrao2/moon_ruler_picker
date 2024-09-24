@@ -28,6 +28,6 @@
 
 * add intCallback
 
-## 1.0.1
+## 1.0.6
 
 * Change initial value and callback method
