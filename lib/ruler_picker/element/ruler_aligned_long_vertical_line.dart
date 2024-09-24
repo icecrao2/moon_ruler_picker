@@ -28,13 +28,14 @@ class _RulerAlignedLongVerticalLine extends StatelessWidget {
 
         Align(
           alignment: Alignment(alignX, 0.0),
-          child: _widgetStandard ? _RulerPickedLongVerticalLine(height: height, width: width * 1.2, color: pickedColor) : _RulerLongVerticalLine(height: height, width: width, color: color)
+          child: _widgetStandard ? _VerticalLine(height: height, width: width * 1.2, color: pickedColor) : _VerticalLine(height: height, width: width, color: color)
         ),
 
         Align(
-          alignment: Alignment(alignX, 1.0),
+          alignment: Alignment(alignX * 1.05, 1.0),
           child: Text(
             myNumber.toStringAsFixed(0),
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF0180BE),
               fontSize: 12,

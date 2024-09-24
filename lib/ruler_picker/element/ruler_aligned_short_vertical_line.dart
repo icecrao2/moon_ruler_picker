@@ -27,7 +27,7 @@ class _RulerAlignedShortVerticalLine extends StatelessWidget {
 
     return Align(
       alignment: Alignment(alignX, 0.0),
-      child: _widgetStandard ? _RulerPickedShortVerticalLine(width: width * 1.2, height: height * 1.46, color: pickedColor,) : _RulerShortVerticalLine(width: width, height: height, color: color,)
+      child: _widgetStandard ? _VerticalLine(width: width * 1.2, height: height * 1.46, color: pickedColor,) : _VerticalLine(width: width, height: height, color: color,)
     );
   }
 }
