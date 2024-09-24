@@ -121,7 +121,6 @@ class _RulerPickerState extends State<RulerPicker> {
         child: SizedBox(
           width: double.infinity,
           child: Stack(
-            alignment: Alignment.center,
             children: rulerLines
           ),
         ),

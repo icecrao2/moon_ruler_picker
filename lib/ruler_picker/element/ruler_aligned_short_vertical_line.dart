@@ -16,9 +16,7 @@ class _RulerAlignedShortVerticalLine extends StatelessWidget {
   final Color color;
 
   double get _diff => (standardNumber - myNumber);
-  bool get _widgetStandard => (
-      (myNumber % 5 == 1 && standardNumber - myNumber < 0) ? (_diff < 0.5 && _diff >= -0.5 ) : (_diff <= 0.5 && _diff > -0.5 )
-  );
+  bool get _widgetStandard => (myNumber % 5 == 1 && standardNumber - myNumber < 0) ? (_diff < 0.5 && _diff >= -0.5 ) : (_diff <= 0.5 && _diff > -0.5 );
 
   const _RulerAlignedShortVerticalLine({required this.standardNumber, required this.myNumber, required this.width, required this.height, required this.color, required this.pickedColor, required this.alignX});
 
@@ -27,7 +25,7 @@ class _RulerAlignedShortVerticalLine extends StatelessWidget {
 
     return Align(
       alignment: Alignment(alignX, 0.0),
-      child: _widgetStandard ? _RulerPickedShortVerticalLine(width: width * 1.2, height: height * 1.46, color: pickedColor,) : _RulerShortVerticalLine(width: width, height: height, color: color,)
+      child: _widgetStandard ? _VerticalLine(width: width * 1.2, height: height * 1.46, color: pickedColor,) : _VerticalLine(width: width, height: height, color: color,)
     );
   }
 }
