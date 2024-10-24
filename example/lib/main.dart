@@ -81,12 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             Container(
-              width: double.infinity,
+              width: 300,
+              height: 200,
               child: RulerPicker(
-                  width: 300,
+
                   height: 200,
-                  longVerticalLineHeightRatio: 0.8,
-                  shortVerticalLineHeightRatio: 0.72,
+                  longVerticalLineHeightRatio: 0.7,
+                  shortVerticalLineHeightRatio: 0.5,
+                  selectedVerticalLineHeightRatio: 1.2,
                   resistance: 1,
                   acceleration: 1,
                   callbackDouble: (data) {

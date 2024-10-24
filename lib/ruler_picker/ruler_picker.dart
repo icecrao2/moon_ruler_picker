@@ -4,18 +4,17 @@ part of ruler_picker_lib;
 
 
 
-class RulerPicker extends StatefulWidget {
+class RulerPicker extends LeafRenderObjectWidget {
 
   final double initNumber;
   final Function(double) callbackDouble;
   final Function(int)? callbackInt;
-  final int? maxNumber;
-  final int? minNumber;
+  final int maxNumber;
+  final int minNumber;
 
   final double resistance;
   final double acceleration;
 
-  final double width;
   final double height;
   final double borderWidth;
   final Color pickedBarColor;
@@ -23,150 +22,270 @@ class RulerPicker extends StatefulWidget {
 
   final double longVerticalLineHeightRatio;
   final double shortVerticalLineHeightRatio;
+  final double selectedVerticalLineHeightRatio;
+
+  final TextStyle labelTextStyle;
 
   const RulerPicker({
     super.key,
+    required this.initNumber,
+    required this.height,
     required this.callbackDouble,
     this.callbackInt,
-    required this.initNumber,
-    required this.width,
+    this.borderWidth = 1,
+    this.pickedBarColor = Colors.blueAccent,
+    this.barColor = Colors.blue,
+    this.longVerticalLineHeightRatio = 0.8,
+    this.shortVerticalLineHeightRatio = 0.72,
+    this.selectedVerticalLineHeightRatio = 1,
+    double resistance = 1,
+    double acceleration = 1,
+    this.maxNumber = 100,
+    this.minNumber = 0,
+    this.labelTextStyle = const TextStyle(
+      fontSize: 10,
+      color: Colors.blue
+    )
+  })
+    : resistance = 1.02 * resistance,
+      acceleration = 0.5 * acceleration ;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return _RulerPickerRenderBox(
+      selectedNumber: initNumber,
+      callbackDouble: callbackDouble,
+      callbackInt: callbackInt,
+      maxNumber: maxNumber,
+      minNumber: minNumber,
+      resistance: resistance,
+      acceleration: acceleration,
+      height: height,
+      borderWidth: borderWidth,
+      pickedBarColor: pickedBarColor,
+      barColor: barColor,
+      longVerticalLineHeightRatio: longVerticalLineHeightRatio,
+      shortVerticalLineHeightRatio: shortVerticalLineHeightRatio,
+      selectedVerticalLineHeightRatio: selectedVerticalLineHeightRatio,
+      textStyle: labelTextStyle
+    );
+  }
+
+  @override
+  void updateRenderObject(BuildContext context, covariant _RulerPickerRenderBox renderObject) {
+
+    if(initNumber != renderObject.selectedNumber ||
+        callbackDouble != renderObject.callbackDouble ||
+        callbackInt != renderObject.callbackInt ||
+        maxNumber != renderObject.maxNumber ||
+        minNumber != renderObject.minNumber ||
+        resistance != renderObject.resistance ||
+        acceleration != renderObject.acceleration ||
+        height != renderObject.height ||
+        borderWidth != renderObject.borderWidth ||
+        pickedBarColor != renderObject.pickedBarColor ||
+        barColor != renderObject.barColor ||
+        longVerticalLineHeightRatio != renderObject.longVerticalLineHeightRatio ||
+        shortVerticalLineHeightRatio != renderObject.shortVerticalLineHeightRatio ||
+        selectedVerticalLineHeightRatio != renderObject.selectedVerticalLineHeightRatio ||
+        labelTextStyle != renderObject.textStyle
+    ) {
+      renderObject.callbackDouble = callbackDouble;
+      renderObject.callbackInt = callbackInt;
+      renderObject.maxNumber = maxNumber;
+      renderObject.minNumber = minNumber;
+      renderObject.resistance = resistance;
+      renderObject.acceleration = acceleration;
+      renderObject.height = height;
+      renderObject.borderWidth = borderWidth;
+      renderObject.pickedBarColor = pickedBarColor;
+      renderObject.barColor = barColor;
+      renderObject.longVerticalLineHeightRatio = longVerticalLineHeightRatio;
+      renderObject.shortVerticalLineHeightRatio = shortVerticalLineHeightRatio;
+      renderObject.selectedVerticalLineHeightRatio = selectedVerticalLineHeightRatio;
+      renderObject.textStyle = labelTextStyle;
+
+      renderObject.markNeedsLayout();
+    }
+  }
+}
+
+
+class _RulerPickerRenderBox extends RenderBox {
+
+  Timer? _timer;
+  late TextPainter _textPainter;
+
+  double selectedNumber;
+  Function(double) callbackDouble;
+  Function(int)? callbackInt;
+  int maxNumber;
+  int minNumber;
+  double resistance;
+  double acceleration;
+
+  double height;
+  double borderWidth;
+  Color pickedBarColor;
+  Color barColor;
+
+  double longVerticalLineHeightRatio;
+  double shortVerticalLineHeightRatio;
+  double selectedVerticalLineHeightRatio;
+
+  TextStyle textStyle;
+
+  double get rulerBetweenAlignWidth => 8;
+
+  late int prev;
+  bool _pointerDown = false;
+  Offset? _startPosition;
+  DateTime? _startTime;
+  bool _isDragMinus = false;
+  double _velocity = 0;
+
+  _RulerPickerRenderBox({
+    required this.callbackDouble,
+    required this.callbackInt,
+    required this.selectedNumber,
     required this.height,
     required this.borderWidth,
     required this.pickedBarColor,
     required this.barColor,
     required this.longVerticalLineHeightRatio,
     required this.shortVerticalLineHeightRatio,
-    this.resistance = 1,
-    this.acceleration = 1,
-    this.maxNumber,
-    this.minNumber,
-  });
-
-  @override
-  State<StatefulWidget> createState() => _RulerPickerState();
-}
-
-class _RulerPickerState extends State<RulerPicker> {
-
-  double get resistance => 0.99 / widget.resistance;
-  double get acceleration => 0.0002 * widget.acceleration;
-  double get rulerBetweenAlignWidth => 0.071;
-
-  Timer? timer;
-  late int prev;
-  late double selectedNumber;
-
-  int? get maxNumber => widget.maxNumber;
-  int? get minNumber => widget.minNumber;
-  double get height => widget.height;
-  double get longVerticalLineHeight => widget.height * widget.longVerticalLineHeightRatio;
-  double get shortVerticalLineHeight => widget.height * widget.shortVerticalLineHeightRatio;
-  double get borderWidth => widget.borderWidth;
-  Color get pickedBarColor => widget.pickedBarColor;
-  Color get barColor => widget.barColor;
-  int get verticalLineCount => (1 ~/ rulerBetweenAlignWidth) + 1;
-
-
-  @override
-  void initState() {
-    prev = widget.initNumber.floor();
-    selectedNumber = widget.initNumber;
-    super.initState();
+    required this.selectedVerticalLineHeightRatio,
+    required this.resistance,
+    required this.acceleration,
+    required this.maxNumber,
+    required this.minNumber,
+    required this.textStyle
+  }) {
+    prev = selectedNumber.floor();
+    _textPainter = TextPainter(textDirection: TextDirection.ltr,);
   }
 
   @override
-  Widget build(BuildContext context) {
+  void performLayout() {
+    size = constraints.biggest;
+    _textPainter.text = TextSpan(text: "5", style: textStyle);
+    _textPainter.layout();
+  }
 
-    List<Widget> rulerLines = [];
+  @override
+  void detach() {
+    _timer?.cancel();
+    _timer = null;
+    super.detach();
+  }
 
-    for (int index = 0; index < verticalLineCount; index++) {
-      if (maxNumber == null) {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, longVerticalLineHeight: longVerticalLineHeight, shortVerticalLineHeight: shortVerticalLineHeight, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth,));
-      } else if( (selectedNumber + index) >= maxNumber! ) {
-        double maxDouble = maxNumber!.toDouble();
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: maxDouble, width: borderWidth, longVerticalLineHeight: longVerticalLineHeight, shortVerticalLineHeight: shortVerticalLineHeight, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
-        break;
-      } else {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, longVerticalLineHeight: longVerticalLineHeight, shortVerticalLineHeight: shortVerticalLineHeight, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
-      }
-    }
+  @override
+  void paint(PaintingContext context, Offset offset) {
 
-    for (int index = -1; index > -verticalLineCount; index--) {
-      if (minNumber == null) {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, longVerticalLineHeight: longVerticalLineHeight, shortVerticalLineHeight: shortVerticalLineHeight, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
-      } else if( (selectedNumber + index) < minNumber! ) {
-        double minDouble = minNumber!.toDouble();
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: minDouble, width: borderWidth, longVerticalLineHeight: longVerticalLineHeight, shortVerticalLineHeight: shortVerticalLineHeight, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
-        break;
-      } else {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, longVerticalLineHeight: longVerticalLineHeight, shortVerticalLineHeight: shortVerticalLineHeight, color: barColor, pickedColor: pickedBarColor, rulerBetweenAlignWidth: rulerBetweenAlignWidth));
-      }
-    }
-
-    return SizedBox(
-      width: widget.width,
-      height: widget.height,
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onHorizontalDragDown: (details) {
-          timer?.cancel();
-          timer = null;
-        },
-        onHorizontalDragEnd: (details) {
-          shootDrag(details);
-        },
-        onHorizontalDragUpdate: (details) {
-          updateDrag(details);
-        },
-        child: SizedBox(
-          width: double.infinity,
-          child: Stack(
-            children: rulerLines
-          ),
-        ),
-      ),
+    _MoonRulerDrawer rulerDrawer = _MoonRulerDrawer(
+        selectedNumber: selectedNumber,
+        color: barColor,
+        selectedColor: pickedBarColor,
+        strokeWidth: borderWidth,
+        rulerPickerHeight: height,
+        size: size,
+        lineBetweenAlignWidth: rulerBetweenAlignWidth,
+        longVerticalLineHeightRatio: longVerticalLineHeightRatio,
+        shortVerticalLineHeightRatio: shortVerticalLineHeightRatio,
+        maxNumber: maxNumber,
+        minNumber: minNumber,
+        pickedVerticalLineHeightRatio: selectedVerticalLineHeightRatio,
+        textStyle: textStyle,
+        textPainter: _textPainter
     );
+
+    rulerDrawer.getLines(_MoonRulerLinesType.lineWithLabel).draw(context, offset);
+    rulerDrawer.getPickedLine(_MoonRulerPickedLinesType.defaultLine).draw(context, offset);
   }
 
-  void updateDrag(details) {
-    setState(() {
-      double delta = details.delta.dx;
+  @override
+  bool get isRepaintBoundary => true;
 
-      _moveRulerPicker(delta);
-      _limitMaxNumber();
-      _limitMinNumber();
-    });
+  @override
+  bool hitTestSelf(Offset position) => true;
+
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+
+    if(selectedNumber.isNaN || selectedNumber.isInfinite) { return; }
+
+    if (event is PointerDownEvent) {
+      _timer?.cancel();
+      _timer = null;
+      _startPosition = event.position;
+      _startTime = DateTime.now();
+      _pointerDown = true;
+    } else if(event is PointerMoveEvent && _pointerDown ) {
+
+      if(_isDragMinus != event.delta.dx < 0) {
+        _startPosition = event.position;
+        _startTime = DateTime.now();
+        _pointerDown = true;
+        _isDragMinus = event.delta.dx < 0;
+      }
+
+      _updateDrag(event);
+      markNeedsPaint();
+
+    } else if(event is PointerUpEvent && _pointerDown) {
+      _pointerDown = false;
+
+      _shootDrag(event);
+    }
+  }
+
+  void _updateDrag(details) {
+    double delta = details.delta.dx;
+
+    _moveRulerPicker(delta);
+    _limitMaxNumber();
+    _limitMinNumber();
 
     _vibratingOnIntegerValue();
 
-    widget.callbackDouble(selectedNumber);
-    widget.callbackInt == null ? null : widget.callbackInt!(selectedNumber.floor());
+    callbackDouble(selectedNumber);
+    callbackInt == null ? null : callbackInt!(selectedNumber.floor());
   }
 
-  void shootDrag(details) {
+  void _shootDrag(details) {
 
-    double velocity = (details.primaryVelocity ?? 0) * acceleration;
+    if(DateTime.now().difference(_startTime!).inMilliseconds < 0.01) {
+      return;
+    }
 
-    timer = Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
-      velocity = velocity * resistance;
-      setState(() {
-        selectedNumber -= (velocity);
-        _limitMaxNumber();
-        _limitMinNumber();
+    if(_timer?.isActive ?? false) {
+      _timer?.cancel();
+      _timer = null;
+    }
 
-        widget.callbackDouble(selectedNumber);
-        widget.callbackInt == null ? null : widget.callbackInt!(selectedNumber.floor());
-      });
+    final duration = DateTime.now().difference(_startTime!);
+    final deltaX = details.position.dx - _startPosition!.dx;
+    _velocity = ( deltaX / duration.inMilliseconds );
+    _velocity *= acceleration;
+
+    _timer = Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
+
+      _velocity = _velocity / resistance;
+      selectedNumber -= _velocity;
+      _limitMaxNumber();
+      _limitMinNumber();
+
+      callbackDouble(selectedNumber);
+      callbackInt == null ? null : callbackInt!(selectedNumber.floor());
 
       _vibratingOnIntegerValue();
 
-      if (velocity.abs() < 0.1) {
-        this.timer?.cancel();
-        this.timer = null;
+      if (_velocity.abs() < 0.1) {
+        _timer?.cancel();
+        _timer = null;
       }
     });
   }
-
 
   void _moveRulerPicker(double delta) {
     if (delta > 5) {
@@ -179,18 +298,16 @@ class _RulerPickerState extends State<RulerPicker> {
   }
 
   void _limitMaxNumber() {
-    if (maxNumber == null) {
 
-    } else if( (selectedNumber) >= maxNumber! ) {
-      selectedNumber =  maxNumber!.toDouble();
+    if( (selectedNumber) >= maxNumber ) {
+      selectedNumber =  maxNumber.toDouble();
     }
   }
 
   void _limitMinNumber() {
-    if (minNumber == null) {
 
-    } else if( (selectedNumber) <= minNumber! ) {
-      selectedNumber =  minNumber!.toDouble();
+    if( (selectedNumber) <= minNumber ) {
+      selectedNumber =  minNumber.toDouble();
     }
   }
 
@@ -201,4 +318,3 @@ class _RulerPickerState extends State<RulerPicker> {
     }
   }
 }
-
