@@ -31,3 +31,7 @@
 ## 1.0.6
 
 * Change initial value and callback method
+
+## 1.1.0
+
+* Change Drawing Method
