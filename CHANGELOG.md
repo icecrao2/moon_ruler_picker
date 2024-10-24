@@ -35,3 +35,7 @@
 ## 1.1.0
 
 * Change Drawing Method
+
+## 1.2.0
+
+* Support circular ruler picker
