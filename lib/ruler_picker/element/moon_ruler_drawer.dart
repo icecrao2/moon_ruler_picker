@@ -57,9 +57,7 @@ class _MoonRulerDrawer {
         return _RulerLinesWithLabel(selectedNumber: selectedNumber, color: color, selectedColor: selectedColor, strokeWidth: strokeWidth, rulerPickerHeight: rulerPickerHeight, size: size, lineBetweenAlignWidth: lineBetweenAlignWidth, longVerticalLineHeightRatio: longVerticalLineHeightRatio, shortVerticalLineHeightRatio: shortVerticalLineHeightRatio, maxNumber: maxNumber, minNumber: minNumber, pickedVerticalLineHeightRatio: pickedVerticalLineHeightRatio, textStyle: textStyle, textPainter: textPainter);
     }
   }
-
 }
-
 
 enum _MoonRulerPickedLinesType {
   defaultLine,
