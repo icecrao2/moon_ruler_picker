@@ -2,7 +2,9 @@
 
 library ruler_picker_lib;
 
+import 'dart:math' as math;
 import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,3 +16,6 @@ part 'ruler_picker/element/picked_ruler_line.dart';
 
 part 'ruler_picker/element/ruler_lines.dart';
 part 'ruler_picker/element/ruler_lines_with_label.dart';
+part 'ruler_picker/element/ruler_circular_lines.dart';
+
+part 'ruler_picker/ui_model/lines_type.dart';

@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -80,17 +79,19 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            Container(
-              width: 300,
+            SizedBox(
+              width: 400,
               height: 200,
               child: RulerPicker(
-
                   height: 200,
-                  longVerticalLineHeightRatio: 0.7,
-                  shortVerticalLineHeightRatio: 0.5,
+                  minNumber: 0,
+                  maxNumber: 100,
+                  longVerticalLineHeightRatio: 0.9,
+                  shortVerticalLineHeightRatio: 0.8,
                   selectedVerticalLineHeightRatio: 1.2,
                   resistance: 1,
                   acceleration: 1,
+                  linesType: MoonRulerLinesType.circularLine,
                   callbackDouble: (data) {
                     setState(() {
                       _doubleData = data;
@@ -102,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                   initNumber: _doubleData,
-                  borderWidth: 2,
+                  borderWidth: 1,
                   pickedBarColor: const Color(0XFF0180BE),
                   barColor: const Color(0XFF0180BE).withOpacity(0.3)
               ),
