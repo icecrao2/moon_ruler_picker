@@ -92,7 +92,8 @@ class RulerPicker extends LeafRenderObjectWidget {
         longVerticalLineHeightRatio != renderObject.longVerticalLineHeightRatio ||
         shortVerticalLineHeightRatio != renderObject.shortVerticalLineHeightRatio ||
         selectedVerticalLineHeightRatio != renderObject.selectedVerticalLineHeightRatio ||
-        labelTextStyle != renderObject.textStyle
+        labelTextStyle != renderObject.textStyle ||
+        linesType != renderObject.linesType
     ) {
       renderObject.callbackDouble = callbackDouble;
       renderObject.callbackInt = callbackInt;
@@ -108,6 +109,7 @@ class RulerPicker extends LeafRenderObjectWidget {
       renderObject.shortVerticalLineHeightRatio = shortVerticalLineHeightRatio;
       renderObject.selectedVerticalLineHeightRatio = selectedVerticalLineHeightRatio;
       renderObject.textStyle = labelTextStyle;
+      renderObject.linesType = linesType;
 
       renderObject.markNeedsLayout();
     }
@@ -119,8 +121,8 @@ class _RulerPickerRenderBox extends RenderBox {
 
   Timer? _timer;
   late TextPainter _textPainter;
-  final MoonRulerLinesType linesType;
 
+  MoonRulerLinesType linesType;
   double selectedNumber;
   Function(double) callbackDouble;
   Function(int)? callbackInt;

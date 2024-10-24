@@ -86,12 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 200,
                   minNumber: 0,
                   maxNumber: 100,
-                  longVerticalLineHeightRatio: 0.9,
-                  shortVerticalLineHeightRatio: 0.8,
+                  longVerticalLineHeightRatio: 0.8,
+                  shortVerticalLineHeightRatio: 0.55,
                   selectedVerticalLineHeightRatio: 1.2,
                   resistance: 1,
                   acceleration: 1,
-                  linesType: MoonRulerLinesType.circularLine,
+                  linesType: MoonRulerLinesType.lineWithLabel,
                   callbackDouble: (data) {
                     setState(() {
                       _doubleData = data;
@@ -103,8 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                   initNumber: _doubleData,
-                  borderWidth: 1,
-                  pickedBarColor: const Color(0XFF0180BE),
+                  borderWidth: 2,
+                  pickedBarColor: Colors.red,
                   barColor: const Color(0XFF0180BE).withOpacity(0.3)
               ),
             ),
