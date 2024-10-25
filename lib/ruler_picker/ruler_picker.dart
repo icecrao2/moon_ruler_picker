@@ -95,6 +95,7 @@ class RulerPicker extends LeafRenderObjectWidget {
         labelTextStyle != renderObject.textStyle ||
         linesType != renderObject.linesType
     ) {
+      renderObject.selectedNumber = initNumber;
       renderObject.callbackDouble = callbackDouble;
       renderObject.callbackInt = callbackInt;
       renderObject.maxNumber = maxNumber;
@@ -287,6 +288,7 @@ class _RulerPickerRenderBox extends RenderBox {
       callbackInt == null ? null : callbackInt!(selectedNumber.floor());
 
       _vibratingOnIntegerValue();
+      markNeedsPaint();
 
       if (_velocity.abs() < 0.1) {
         _timer?.cancel();
