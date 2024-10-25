@@ -36,6 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   double _doubleData = 0;
   int _intData = 0;
+  MoonRulerLinesType rulerLinesType = MoonRulerLinesType.lineWithLabel;
+  double longVerticalLineHeightRatio = 0.8;
+  double shortVerticalLineHeightRatio = 0.55;
+  double selectedVerticalLineHeightRatio = 1.2;
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +90,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 200,
                   minNumber: 0,
                   maxNumber: 100,
-                  longVerticalLineHeightRatio: 0.8,
-                  shortVerticalLineHeightRatio: 0.55,
-                  selectedVerticalLineHeightRatio: 1.2,
+                  longVerticalLineHeightRatio: longVerticalLineHeightRatio,
+                  shortVerticalLineHeightRatio: shortVerticalLineHeightRatio,
+                  selectedVerticalLineHeightRatio: selectedVerticalLineHeightRatio,
                   resistance: 1,
                   acceleration: 1,
-                  linesType: MoonRulerLinesType.lineWithLabel,
+                  linesType: rulerLinesType,
                   callbackDouble: (data) {
                     setState(() {
                       _doubleData = data;
@@ -107,6 +111,44 @@ class _MyHomePageState extends State<MyHomePage> {
                   pickedBarColor: Colors.red,
                   barColor: const Color(0XFF0180BE).withOpacity(0.3)
               ),
+            ),
+
+            const Spacer(),
+
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    rulerLinesType = MoonRulerLinesType.circularLine;
+                    longVerticalLineHeightRatio = 1;
+                    shortVerticalLineHeightRatio = 0.85;
+                    selectedVerticalLineHeightRatio = 1;
+                  });
+                },
+                child: Text('ruler circular picker')
+            ),
+
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    rulerLinesType = MoonRulerLinesType.line;
+                    longVerticalLineHeightRatio = 0.8;
+                    shortVerticalLineHeightRatio = 0.55;
+                    selectedVerticalLineHeightRatio = 1.2;
+                  });
+                },
+                child: Text('ruler line picker')
+            ),
+
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    rulerLinesType = MoonRulerLinesType.lineWithLabel;
+                    longVerticalLineHeightRatio = 0.8;
+                    shortVerticalLineHeightRatio = 0.55;
+                    selectedVerticalLineHeightRatio = 1.2;
+                  });
+                },
+                child: Text('ruler line piecker with label')
             ),
 
             const Spacer(),
