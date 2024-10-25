@@ -97,10 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   acceleration: 1,
                   linesType: rulerLinesType,
                   callbackDouble: (data) {
-                    _doubleData = data;
+                    setState(() {
+                      _doubleData = data;
+                    });
                   },
                   callbackInt: (data) {
-                    _intData = data;
+                    setState(() {
+                      _intData = data;
+                    });
                   },
                   initNumber: _doubleData,
                   borderWidth: 2,
