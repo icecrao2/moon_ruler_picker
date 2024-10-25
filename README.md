@@ -5,7 +5,7 @@ this package provide you with good ruler picker! <br/>
 Experience the Ruler Picker smoothly gliding through a swift swipe motion, coming to a natural halt! <br/>
 Customize the movement of the Ruler Picker by setting acceleration and resistance to achieve your desired behavior. <br/>
 
-<img src="gif.gif" width=300 />
+![gif.gif](gif.gif)
 
 ## Getting started
 
