@@ -40,29 +40,27 @@ class _MoonRulerDrawer {
 
   void draw(PaintingContext context, Offset offset) { }
 
-  _MoonRulerDrawer getPickedLine(_MoonRulerPickedLinesType type) {
+  _MoonRulerDrawer getPickedLine(MoonRulerLinesType type) {
 
     switch(type) {
-      case _MoonRulerPickedLinesType.defaultLine:
+      case MoonRulerLinesType.line:
         return _PickedRulerLine(selectedNumber: selectedNumber, color: color, selectedColor: selectedColor, strokeWidth: strokeWidth, rulerPickerHeight: rulerPickerHeight, size: size, lineBetweenAlignWidth: lineBetweenAlignWidth, longVerticalLineHeightRatio: longVerticalLineHeightRatio, shortVerticalLineHeightRatio: shortVerticalLineHeightRatio, maxNumber: maxNumber, minNumber: minNumber, pickedVerticalLineHeightRatio: pickedVerticalLineHeightRatio, textStyle: textStyle, textPainter: textPainter);
+      case MoonRulerLinesType.lineWithLabel:
+        return _PickedRulerLine(selectedNumber: selectedNumber, color: color, selectedColor: selectedColor, strokeWidth: strokeWidth, rulerPickerHeight: rulerPickerHeight, size: size, lineBetweenAlignWidth: lineBetweenAlignWidth, longVerticalLineHeightRatio: longVerticalLineHeightRatio, shortVerticalLineHeightRatio: shortVerticalLineHeightRatio, maxNumber: maxNumber, minNumber: minNumber, pickedVerticalLineHeightRatio: pickedVerticalLineHeightRatio, textStyle: textStyle, textPainter: textPainter);
+      case MoonRulerLinesType.circularLine:
+        return _PickedCircularRulerLine(selectedNumber: selectedNumber, color: color, selectedColor: selectedColor, strokeWidth: strokeWidth, rulerPickerHeight: rulerPickerHeight, size: size, lineBetweenAlignWidth: lineBetweenAlignWidth, longVerticalLineHeightRatio: longVerticalLineHeightRatio, shortVerticalLineHeightRatio: shortVerticalLineHeightRatio, maxNumber: maxNumber, minNumber: minNumber, pickedVerticalLineHeightRatio: pickedVerticalLineHeightRatio, textStyle: textStyle, textPainter: textPainter);
     }
   }
 
-  _MoonRulerDrawer getLines(_MoonRulerLinesType type) {
+  _MoonRulerDrawer getLines(MoonRulerLinesType type) {
 
     switch(type) {
-      case _MoonRulerLinesType.defaultLine:
+      case MoonRulerLinesType.line:
         return _RulerLines(selectedNumber: selectedNumber, color: color, selectedColor: selectedColor, strokeWidth: strokeWidth, rulerPickerHeight: rulerPickerHeight, size: size, lineBetweenAlignWidth: lineBetweenAlignWidth, longVerticalLineHeightRatio: longVerticalLineHeightRatio, shortVerticalLineHeightRatio: shortVerticalLineHeightRatio, maxNumber: maxNumber, minNumber: minNumber, pickedVerticalLineHeightRatio: pickedVerticalLineHeightRatio, textStyle: textStyle, textPainter: textPainter);
-      case _MoonRulerLinesType.lineWithLabel:
+      case MoonRulerLinesType.lineWithLabel:
         return _RulerLinesWithLabel(selectedNumber: selectedNumber, color: color, selectedColor: selectedColor, strokeWidth: strokeWidth, rulerPickerHeight: rulerPickerHeight, size: size, lineBetweenAlignWidth: lineBetweenAlignWidth, longVerticalLineHeightRatio: longVerticalLineHeightRatio, shortVerticalLineHeightRatio: shortVerticalLineHeightRatio, maxNumber: maxNumber, minNumber: minNumber, pickedVerticalLineHeightRatio: pickedVerticalLineHeightRatio, textStyle: textStyle, textPainter: textPainter);
+      case MoonRulerLinesType.circularLine:
+        return _RulerCircularLines(selectedNumber: selectedNumber, color: color, selectedColor: selectedColor, strokeWidth: strokeWidth, rulerPickerHeight: rulerPickerHeight, size: size, lineBetweenAlignWidth: lineBetweenAlignWidth, longVerticalLineHeightRatio: longVerticalLineHeightRatio, shortVerticalLineHeightRatio: shortVerticalLineHeightRatio, maxNumber: maxNumber, minNumber: minNumber, pickedVerticalLineHeightRatio: pickedVerticalLineHeightRatio, textStyle: textStyle, textPainter: textPainter);
     }
   }
-}
-
-enum _MoonRulerPickedLinesType {
-  defaultLine,
-}
-
-enum _MoonRulerLinesType {
-  defaultLine, lineWithLabel
 }

@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -37,6 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   double _doubleData = 0;
   int _intData = 0;
+  MoonRulerLinesType rulerLinesType = MoonRulerLinesType.lineWithLabel;
+  double longVerticalLineHeightRatio = 0.8;
+  double shortVerticalLineHeightRatio = 0.55;
+  double selectedVerticalLineHeightRatio = 1.2;
 
   @override
   Widget build(BuildContext context) {
@@ -80,17 +83,19 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            Container(
-              width: 300,
+            SizedBox(
+              width: 400,
               height: 200,
               child: RulerPicker(
-
                   height: 200,
-                  longVerticalLineHeightRatio: 0.7,
-                  shortVerticalLineHeightRatio: 0.5,
-                  selectedVerticalLineHeightRatio: 1.2,
+                  minNumber: 0,
+                  maxNumber: 100,
+                  longVerticalLineHeightRatio: longVerticalLineHeightRatio,
+                  shortVerticalLineHeightRatio: shortVerticalLineHeightRatio,
+                  selectedVerticalLineHeightRatio: selectedVerticalLineHeightRatio,
                   resistance: 1,
                   acceleration: 1,
+                  linesType: rulerLinesType,
                   callbackDouble: (data) {
                     setState(() {
                       _doubleData = data;
@@ -103,9 +108,47 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   initNumber: _doubleData,
                   borderWidth: 2,
-                  pickedBarColor: const Color(0XFF0180BE),
+                  pickedBarColor: Colors.red,
                   barColor: const Color(0XFF0180BE).withOpacity(0.3)
               ),
+            ),
+
+            const Spacer(),
+
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    rulerLinesType = MoonRulerLinesType.circularLine;
+                    longVerticalLineHeightRatio = 1;
+                    shortVerticalLineHeightRatio = 0.85;
+                    selectedVerticalLineHeightRatio = 1;
+                  });
+                },
+                child: Text('ruler circular picker')
+            ),
+
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    rulerLinesType = MoonRulerLinesType.line;
+                    longVerticalLineHeightRatio = 0.8;
+                    shortVerticalLineHeightRatio = 0.55;
+                    selectedVerticalLineHeightRatio = 1.2;
+                  });
+                },
+                child: Text('ruler line picker')
+            ),
+
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    rulerLinesType = MoonRulerLinesType.lineWithLabel;
+                    longVerticalLineHeightRatio = 0.8;
+                    shortVerticalLineHeightRatio = 0.55;
+                    selectedVerticalLineHeightRatio = 1.2;
+                  });
+                },
+                child: Text('ruler line piecker with label')
             ),
 
             const Spacer(),
