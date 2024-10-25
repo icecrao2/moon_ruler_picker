@@ -39,3 +39,7 @@
 ## 1.2.0
 
 * Support circular ruler picker
+
+## 1.2.1
+
+* Edit readme 
