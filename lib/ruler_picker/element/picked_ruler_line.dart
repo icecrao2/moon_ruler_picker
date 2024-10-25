@@ -56,5 +56,4 @@ class _PickedRulerLine extends _MoonRulerDrawer {
 
     context.canvas.drawPath(path, paint);
   }
-
 }

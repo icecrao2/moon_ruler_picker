@@ -5,7 +5,7 @@ this package provide you with good ruler picker! <br/>
 Experience the Ruler Picker smoothly gliding through a swift swipe motion, coming to a natural halt! <br/>
 Customize the movement of the Ruler Picker by setting acceleration and resistance to achieve your desired behavior. <br/>
 
-<img src="https://velog.velcdn.com/images/icecrao2/post/cda1bd1d-b88c-4410-a8da-fe4aeeb1ce72/image.gif" width=300 />
+<img src="gif.gif" width=300 />
 
 ## Getting started
 
@@ -21,6 +21,7 @@ flutter pub add moon_ruler_picker
       height: 200,
       resistance: 1,
       acceleration: 1,
+      linesType: MoonRulerLinesType.lineWithLabel,
       callbackDouble: (data) {
         setState(() {
           _doubleData = data;

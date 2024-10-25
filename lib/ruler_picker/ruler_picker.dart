@@ -6,6 +6,8 @@ part of ruler_picker_lib;
 
 class RulerPicker extends LeafRenderObjectWidget {
 
+  final MoonRulerLinesType linesType;
+
   final double initNumber;
   final Function(double) callbackDouble;
   final Function(int)? callbackInt;
@@ -32,6 +34,7 @@ class RulerPicker extends LeafRenderObjectWidget {
     required this.height,
     required this.callbackDouble,
     this.callbackInt,
+    this.linesType = MoonRulerLinesType.lineWithLabel,
     this.borderWidth = 1,
     this.pickedBarColor = Colors.blueAccent,
     this.barColor = Colors.blue,
@@ -67,7 +70,8 @@ class RulerPicker extends LeafRenderObjectWidget {
       longVerticalLineHeightRatio: longVerticalLineHeightRatio,
       shortVerticalLineHeightRatio: shortVerticalLineHeightRatio,
       selectedVerticalLineHeightRatio: selectedVerticalLineHeightRatio,
-      textStyle: labelTextStyle
+      textStyle: labelTextStyle,
+      linesType: linesType
     );
   }
 
@@ -88,7 +92,8 @@ class RulerPicker extends LeafRenderObjectWidget {
         longVerticalLineHeightRatio != renderObject.longVerticalLineHeightRatio ||
         shortVerticalLineHeightRatio != renderObject.shortVerticalLineHeightRatio ||
         selectedVerticalLineHeightRatio != renderObject.selectedVerticalLineHeightRatio ||
-        labelTextStyle != renderObject.textStyle
+        labelTextStyle != renderObject.textStyle ||
+        linesType != renderObject.linesType
     ) {
       renderObject.callbackDouble = callbackDouble;
       renderObject.callbackInt = callbackInt;
@@ -104,6 +109,7 @@ class RulerPicker extends LeafRenderObjectWidget {
       renderObject.shortVerticalLineHeightRatio = shortVerticalLineHeightRatio;
       renderObject.selectedVerticalLineHeightRatio = selectedVerticalLineHeightRatio;
       renderObject.textStyle = labelTextStyle;
+      renderObject.linesType = linesType;
 
       renderObject.markNeedsLayout();
     }
@@ -116,6 +122,7 @@ class _RulerPickerRenderBox extends RenderBox {
   Timer? _timer;
   late TextPainter _textPainter;
 
+  MoonRulerLinesType linesType;
   double selectedNumber;
   Function(double) callbackDouble;
   Function(int)? callbackInt;
@@ -159,7 +166,8 @@ class _RulerPickerRenderBox extends RenderBox {
     required this.acceleration,
     required this.maxNumber,
     required this.minNumber,
-    required this.textStyle
+    required this.textStyle,
+    required this.linesType
   }) {
     prev = selectedNumber.floor();
     _textPainter = TextPainter(textDirection: TextDirection.ltr,);
@@ -199,8 +207,8 @@ class _RulerPickerRenderBox extends RenderBox {
         textPainter: _textPainter
     );
 
-    rulerDrawer.getLines(_MoonRulerLinesType.lineWithLabel).draw(context, offset);
-    rulerDrawer.getPickedLine(_MoonRulerPickedLinesType.defaultLine).draw(context, offset);
+    rulerDrawer.getLines(linesType).draw(context, offset);
+    rulerDrawer.getPickedLine(linesType).draw(context, offset);
   }
 
   @override
