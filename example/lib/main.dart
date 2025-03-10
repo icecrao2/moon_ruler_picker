@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:moon_ruler_picker/ruler_picker_lib.dart';
 
@@ -38,9 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _intData = 0;
   MoonRulerLinesType rulerLinesType = MoonRulerLinesType.lineWithLabel;
   double longVerticalLineHeightRatio = 0.8;
-  double shortVerticalLineHeightRatio = 0.55;
-  double selectedVerticalLineHeightRatio = 1.2;
-
+  double shortVerticalLineHeightRatio = 0.7;
   @override
   Widget build(BuildContext context) {
 
@@ -85,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             SizedBox(
               width: 400,
-              height: 200,
+              height: 400,
               child: RulerPicker(
                   height: 200,
                   minNumber: 0,
@@ -95,7 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   selectedVerticalLineHeightRatio: selectedVerticalLineHeightRatio,
                   resistance: 1,
                   acceleration: 1,
-                  linesType: rulerLinesType,
+                  // linesType: rulerLinesType,
+                  linesType: MoonRulerLinesType.verticalLine,
                   callbackDouble: (data) {
                     setState(() {
                       _doubleData = data;
@@ -108,8 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   initNumber: _doubleData,
                   borderWidth: 2,
-                  pickedBarColor: Colors.red,
-                  barColor: const Color(0XFF0180BE).withOpacity(0.3)
+                  pickedBarColor: Colors.blue,
+                  barColor: const Color(0XFF0180BE).withOpacity(0.3),
+                  rulerBetweenAlignWidth: 24,
               ),
             ),
 
@@ -159,4 +157,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     );
   }
+
+  double selectedVerticalLineHeightRatio = 1.2;
 }
