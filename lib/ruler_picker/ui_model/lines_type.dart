@@ -5,5 +5,5 @@ part of ruler_picker_lib;
 
 
 enum MoonRulerLinesType {
-  line, lineWithLabel, circularLine
+  line, lineWithLabel, bottomLine, verticalLine, circularLine
 }
